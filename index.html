@@ -127,7 +127,7 @@ setTimeout(() => {
 
     window.OneSignalDeferred.push(async function (OneSignal) {
       try {
-        await OneSignal.Slidedown.promptPush();
+        await OneSignal.User.PushSubscription.optIn();
       } catch (error) {
         console.error('OneSignal prompt error:', error);
       } finally {
