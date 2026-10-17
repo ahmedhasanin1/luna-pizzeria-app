@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,25 +10,81 @@
 <link rel="icon" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" href="./icons/icon-192.png">
 <title>Luna Pizzeria</title>
+
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#101820;font-family:Arial,sans-serif}
-#app{position:fixed;inset:0;width:100%;height:100%;border:0;background:#fff}
-#fallback{display:none;position:fixed;inset:0;z-index:2;background:#101820;color:#fff;align-items:center;justify-content:center;text-align:center;padding:24px}
+*{box-sizing:border-box}
+html,body{
+  margin:0;width:100%;height:100%;
+  background:#101820;font-family:Arial,sans-serif
+}
+#app{
+  position:fixed;inset:0;width:100%;height:100%;
+  border:0;background:#fff
+}
+#fallback{
+  display:none;position:fixed;inset:0;z-index:2;
+  background:#101820;color:#fff;align-items:center;
+  justify-content:center;text-align:center;padding:24px
+}
 a{color:#ff9800}
 </style>
+
+<!-- OneSignal Web SDK -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+window.OneSignalDeferred = window.OneSignalDeferred || [];
+
+OneSignalDeferred.push(async function(OneSignal) {
+  await OneSignal.init({
+    appId: "36cfa2be-3b71-4e9d-8773-d8cb90fa854a",
+    serviceWorkerPath: "service-worker.js",
+    serviceWorkerParam: {
+      scope: "/luna-pizzeria-app/"
+    }
+  });
+});
+</script>
 </head>
+
 <body>
-<iframe id="app" title="Luna Pizzeria Reservation" src="https://script.google.com/macros/s/AKfycby8lJM3nAbIIrDm5DH0mFbci-XTzed3Mnt-SUJfR8nVND5j2L08uxRtmERlo6oJTzpL/exec" allow="clipboard-read; clipboard-write"></iframe>
+<iframe
+  id="app"
+  title="Luna Pizzeria Reservation"
+  src="https://script.google.com/macros/s/AKfycby8lJM3nAbIIrDm5DH0mFbci-XTzed3Mnt-SUJfR8nVND5j2L08uxRtmERlo6oJTzpL/exec"
+  allow="clipboard-read; clipboard-write">
+</iframe>
+
 <div id="fallback">
- <div><h2>Luna Pizzeria</h2><p>إذا لم تظهر شاشة الحجز، افتح النظام مباشرة:</p><p><a href="https://script.google.com/macros/s/AKfycby8lJM3nAbIIrDm5DH0mFbci-XTzed3Mnt-SUJfR8nVND5j2L08uxRtmERlo6oJTzpL/exec" target="_blank" rel="noopener">فتح نظام الحجز</a></p></div>
+  <div>
+    <h2>Luna Pizzeria</h2>
+    <p>إذا لم تظهر شاشة الحجز، افتح النظام مباشرة:</p>
+    <p>
+      <a href="https://script.google.com/macros/s/AKfycby8lJM3nAbIIrDm5DH0mFbci-XTzed3Mnt-SUJfR8nVND5j2L08uxRtmERlo6oJTzpL/exec"
+         target="_blank" rel="noopener">
+        فتح نظام الحجز
+      </a>
+    </p>
+  </div>
 </div>
+
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('./service-worker.js', {
+        scope: '/luna-pizzeria-app/'
+      })
+      .catch(error => console.error('Service Worker error:', error));
+  });
 }
+
 setTimeout(() => {
- const f=document.getElementById('app');
- try { if (!f.contentWindow) document.getElementById('fallback').style.display='flex'; } catch(e) {}
+  const f = document.getElementById('app');
+  try {
+    if (!f.contentWindow) {
+      document.getElementById('fallback').style.display = 'flex';
+    }
+  } catch(e) {}
 }, 8000);
 </script>
 </body>
